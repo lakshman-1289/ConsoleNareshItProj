@@ -7,7 +7,7 @@ import com.common.Common;
 import com.courses.DisplayCourses;
 import com.courses.TrainersData;
 
-//Main class to run the project
+//Main class to run the project..
 public class Main implements SignUp,DisplayCourses{
 	static Main mobj=new Main();
 	static Date dt = new Date();
