@@ -1,10 +1,6 @@
 package com.courses;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
 
 import com.common.Common;
 import com.common.CommonToCourses;
@@ -26,6 +22,15 @@ public interface PythonFullStack extends CommonToCourses{
 			checkUser.put(username, 0);
 			all_users_courselist.put(username,null);
 		}
+		if(checkUser.get(username) == 0) {
+			Main.out_ar = new ArrayList<>();   
+		}
+		else {
+			if(all_users_courselist.get(username).size() != 0) {
+				Main.out_ar = all_users_courselist.get(username);   
+				check_ar = (ArrayList<ArrayList<String>>) all_users_courselist.get(username).clone();
+			}
+		}
 		Main.cnt = checkUser.get(username);  
 		System.out.println("\n\nName : "+username+"   		no of courses in your list:"+Main.cnt);
 		System.out.println(BLACK_BACKGROUND+PURPLE+"				FULL STATCK PYTHON				"+ANSI_RESET);
@@ -42,17 +47,7 @@ public interface PythonFullStack extends CommonToCourses{
 				switch(Integer.parseInt(choice)){
 				case 1:
 					CommonToCourses.check_course(user,python1); 
-					
-					if(checkUser.get(username) == 0) {
-						Main.out_ar = new ArrayList<>();   
-					}
-					else {
-						if(all_users_courselist.get(username).size() != 0) {
-							Main.out_ar = all_users_courselist.get(username);   
-							check_ar = (ArrayList<ArrayList<String>>) all_users_courselist.get(username).clone();
-						}
-					}
-					
+				
 					CommonToCourses.facaulty_selection(username,course,python1);
 					CommonToCourses.facaulty_selection(username,course,python2);
 										
@@ -70,16 +65,6 @@ public interface PythonFullStack extends CommonToCourses{
 				case 2:
 					CommonToCourses.check_course(user,python3);
 					
-				    if(checkUser.get(username) == 0) {
-						Main.out_ar = new ArrayList<>();    
-					}
-				    else {
-						if(all_users_courselist.get(username).size() != 0) {
-							Main.out_ar = all_users_courselist.get(username);
-							check_ar = (ArrayList<ArrayList<String>>) all_users_courselist.get(username).clone();
-						}
-					}
-				    
 				    CommonToCourses.facaulty_selection(username,course,python3);
 				    CommonToCourses.facaulty_selection(username,course,python4);
 			
@@ -96,16 +81,6 @@ public interface PythonFullStack extends CommonToCourses{
 					break;
 				case 3:
 					CommonToCourses.check_course(user,python5);
-					
-					if(checkUser.get(username) == 0) {
-						Main.out_ar = new ArrayList<>();    
-					}
-					else {
-						if(all_users_courselist.get(username).size() != 0) {
-							Main.out_ar = all_users_courselist.get(username);
-							check_ar = (ArrayList<ArrayList<String>>) all_users_courselist.get(username).clone();
-						}
-					}
 
 					CommonToCourses.facaulty_selection(username,course,python5);
 					CommonToCourses.facaulty_selection(username,course,python6);

@@ -1,9 +1,7 @@
 package com.courses;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Scanner;
 
 import com.common.Common;
 import com.common.CommonToCourses;
@@ -20,15 +18,26 @@ public interface DotNetFullStack extends CommonToCourses{
 		
 	@SuppressWarnings("unchecked")
 	public static void openNet(ArrayList<String> user) throws Exception {
-		ArrayList<ArrayList<String>> check_ar = new ArrayList<>();
 		String username = user.get(0);
+		ArrayList<ArrayList<String>> check_ar = new ArrayList<>(); 
 		if(checkUser.get(username)==null) {
 			checkUser.put(username, 0);
 			all_users_courselist.put(username,null);
 		}
+		
+		if(checkUser.get(username) == 0) {
+			Main.out_ar = new ArrayList<>();   
+		}
+		else {
+			if(all_users_courselist.get(username).size() != 0) {
+				Main.out_ar = all_users_courselist.get(username);    				
+				check_ar = (ArrayList<ArrayList<String>>) all_users_courselist.get(username).clone();
+			}
+		}
 		Main.cnt = checkUser.get(username);  
+		
 		System.out.println("\n\nName : "+username+"   		no of courses in your list:"+Main.cnt);
-		System.out.println(BLACK_BACKGROUND+PURPLE+"				FULL STATCK JAVA				"+ANSI_RESET);
+		System.out.println(BLACK_BACKGROUND+PURPLE+"				FULL STATCK .NET				"+ANSI_RESET);
 		System.out.println("This complete course divided into 3 phases.............");
 		System.out.println(YELLOW+"PRESS 1 :"+ANSI_RESET+" PHASE-01[FIRST 2 MONTHS]:"+"\n"+net1+ "\n"+net2+"\n"+net3);
 		System.out.println(YELLOW+"PRESS 2 :"+ANSI_RESET+" PHASE -02[NEXT 2 MONTHS]:"+"\n"+net4+ "\n"+net5);
@@ -42,16 +51,6 @@ public interface DotNetFullStack extends CommonToCourses{
 				switch(Integer.parseInt(choice)){
 				case 1:
 					CommonToCourses.check_course(user,net1); 
-					
-					if(checkUser.get(username) == 0) {
-						Main.out_ar = new ArrayList<>();   
-					}
-					else {
-						if(all_users_courselist.get(username).size() != 0) {
-							Main.out_ar = all_users_courselist.get(username);    				
-							check_ar = (ArrayList<ArrayList<String>>) all_users_courselist.get(username).clone();
-						}
-					}
 					
 					CommonToCourses.facaulty_selection(username,course,net1);
 					CommonToCourses.facaulty_selection(username,course,net2);
@@ -71,16 +70,6 @@ public interface DotNetFullStack extends CommonToCourses{
 					break;
 				case 2:
 					CommonToCourses.check_course(user,net4);
-					
-				    if(checkUser.get(username) == 0) {
-						Main.out_ar = new ArrayList<>();    
-					}
-				    else {
-						if(all_users_courselist.get(username).size() != 0) {
-							Main.out_ar = all_users_courselist.get(username);
-							check_ar = (ArrayList<ArrayList<String>>) all_users_courselist.get(username).clone();
-						}
-					}
 				    
 				    CommonToCourses.facaulty_selection(username,course,net4);
 				    CommonToCourses.facaulty_selection(username,course,net5);
@@ -98,16 +87,6 @@ public interface DotNetFullStack extends CommonToCourses{
 					break;
 				case 3:
 					CommonToCourses.check_course(user,net6);
-					
-					if(checkUser.get(username) == 0) {
-						Main.out_ar = new ArrayList<>();    
-					}
-					else {
-						if(all_users_courselist.get(username).size() != 0) {
-							Main.out_ar = all_users_courselist.get(username);
-							check_ar = (ArrayList<ArrayList<String>>) all_users_courselist.get(username).clone();
-						}
-					}
 
 					CommonToCourses.facaulty_selection(username,course,net6);
 					CommonToCourses.facaulty_selection(username,course,net7);

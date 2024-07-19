@@ -83,6 +83,36 @@ public interface CommonToCourses extends Common{
 		
 		//Maintain size of user's course list and update "cnt variable" everytime
 		HashMap<String,Integer> checkUser = new HashMap<>();
+	
+		//Checking the phase of classes already existed or not in the user's course list
+		static void check_course(ArrayList<String> user,String cls) throws Exception {
+			String uname = user.get(0);
+			String c = user.get(1);
+			if(all_users_courselist.get(uname) == null)
+				return;
+			ArrayList<ArrayList<String>> temp = new ArrayList<>();
+			temp = all_users_courselist.get(uname);
+			for(ArrayList<String> ele : temp) {
+				if(ele.get(0).equals(cls)) {
+					System.out.println(RED_BACKGROUND+"ALREADY EXISTED CLASSES "+ANSI_RESET);
+					System.out.println(RED+BLACK_BACKGROUND+"REMINDER"+ANSI_RESET);
+					System.out.println(YELLOW+"Everytime While adding classes,check already existed CLASSES AND THEIR TIMINGS in your COURSE LIST(By pressing 4)"+ANSI_RESET);
+					switch(c) {
+						case java:
+							JavaFullStack.openJava(user);break;
+						case net:
+							DotNetFullStack.openNet(user);break;
+						case python:
+							PythonFullStack.openPython(user);break;
+						case web:
+							UIFullStack.openWeb(user);break;
+						case ds:
+							FullStackDataScience.openDs(user);break;
+					}
+
+				}
+			}
+		 }
 		
 		//Trainer Selection and store in user's course list
 		static void facaulty_selection(String username,HashMap<String,HashMap<String,List<String>>> course,String phase_class){
@@ -157,7 +187,7 @@ public interface CommonToCourses extends Common{
 				temp.clear();
 			}
 			System.out.println("\n==========================================================================================");
-			it3.clear();
+			it3.clear();//----------------------------
 			
 			System.out.println(RED+BLACK_BACKGROUND+"REMINDER -2 "+ANSI_RESET);
 			System.out.println(YELLOW+"You must choose ALL class timings from"+RED+" ONLY ONE "+ANSI_RESET+YELLOW+" of the displayed sets above"+ANSI_RESET);
@@ -188,7 +218,7 @@ public interface CommonToCourses extends Common{
 				temp.clear();
 			}
 			System.out.println("\n==========================================================================================");
-			it2.clear();
+			it2.clear();//---------------------
 			
 			System.out.println(RED+BLACK_BACKGROUND+"REMINDER"+ANSI_RESET);
 			System.out.println(YELLOW+"You must choose ALL class timings from"+RED+" ONLY ONE "+ANSI_RESET+YELLOW+" of the displayed sets above"+ANSI_RESET);
@@ -211,36 +241,7 @@ public interface CommonToCourses extends Common{
 			}
 		 }
 		
-		//Checking the phase of classes already existed or not in the user's course list
-		static void check_course(ArrayList<String> user,String cls) throws Exception {
-			String uname = user.get(0);
-			String c = user.get(1);
-			if(all_users_courselist.get(uname) == null)
-				return;
-			ArrayList<ArrayList<String>> temp = new ArrayList<>();
-			temp = all_users_courselist.get(uname);
-			for(ArrayList<String> ele : temp) {
-				if(ele.get(0).equals(cls)) {
-					System.out.println(RED_BACKGROUND+"ALREADY EXISTED CLASSES "+ANSI_RESET);
-					System.out.println(RED+BLACK_BACKGROUND+"REMINDER"+ANSI_RESET);
-					System.out.println(YELLOW+"Everytime While adding classes,check already existed CLASSES AND THEIR TIMINGS in your COURSE LIST(By pressing 4)"+ANSI_RESET);
-					switch(c) {
-						case java:
-							JavaFullStack.openJava(user);break;
-						case net:
-							DotNetFullStack.openNet(user);break;
-						case python:
-							PythonFullStack.openPython(user);break;
-						case web:
-							UIFullStack.openWeb(user);break;
-						case ds:
-							FullStackDataScience.openDs(user);break;
-					}
-
-				}
-			}
-		 }
-		
+				
 		//method used to display existed course list of user everytime before getting timings to new phase of classes into course list
 		static void display_list(ArrayList<String> user,int x){
 			String username = user.get(0);

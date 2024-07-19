@@ -1,10 +1,6 @@
 package com.courses;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
 
 import com.common.Common;
 import com.common.CommonToCourses;
@@ -27,6 +23,24 @@ public interface JavaFullStack extends CommonToCourses{
 			checkUser.put(username, 0);
 			all_users_courselist.put(username,null);
 		}
+		if(checkUser.get(username) == 0) {
+			Main.out_ar = new ArrayList<>();    //logic here------------new object initialization to new user 
+		}
+		else {
+			if(all_users_courselist.get(username).size() != 0) {
+				Main.out_ar = all_users_courselist.get(username);   //-----------common array used to store with existed courses and update later for each user 
+				/*
+				//to store data(actually need copy data)
+				check_ar = user_list.get(username);  				//-------call by reference ---trail-1 wrong
+				for(ArrayList<String> ele : user_list.get(username))   //-------call by value(copy data) ---trail-2 correct
+				{  
+					ArrayList<String> t = ele;
+					check_ar.add(t);
+				}
+				*/
+				check_ar = (ArrayList<ArrayList<String>>) all_users_courselist.get(username).clone();//copy data using clone method ---trail-3 simple way					
+			}
+		}
 		Main.cnt = checkUser.get(username);  
 		System.out.println("\n\nName : "+username+"   		no of courses in your list:"+Main.cnt);//----------------------------------
 		System.out.println(BLACK_BACKGROUND+PURPLE+"				FULL STATCK JAVA				"+ANSI_RESET);
@@ -43,25 +57,6 @@ public interface JavaFullStack extends CommonToCourses{
 				switch(Integer.parseInt(choice)){
 				case 1:
 					CommonToCourses.check_course(user,java1);  
-					
-					if(checkUser.get(username) == 0) {
-						Main.out_ar = new ArrayList<>();    //logic here------------new object initialization to new user 
-					}
-					else {
-						if(all_users_courselist.get(username).size() != 0) {
-							Main.out_ar = all_users_courselist.get(username);   //-----------common array used to store with existed courses and update later for each user 
-							/*
-							//to store data(actually need copy data)
-							check_ar = user_list.get(username);  				//-------call by reference ---trail-1 wrong
-							for(ArrayList<String> ele : user_list.get(username))   //-------call by value(copy data) ---trail-2 correct
-							{  
-								ArrayList<String> t = ele;
-								check_ar.add(t);
-							}
-							*/
-							check_ar = (ArrayList<ArrayList<String>>) all_users_courselist.get(username).clone();//copy data using clone method ---trail-3 simple way					
-						}
-					}
 					
 					CommonToCourses.facaulty_selection(username,course,java1);
 					CommonToCourses.facaulty_selection(username,course,java2);
@@ -81,16 +76,6 @@ public interface JavaFullStack extends CommonToCourses{
 					break;
 				case 2:
 					CommonToCourses.check_course(user,java4);
-					
-				    if(checkUser.get(username) == 0) {
-						Main.out_ar = new ArrayList<>();    
-					}
-				    else {
-						if(all_users_courselist.get(username).size() != 0) {
-							Main.out_ar = all_users_courselist.get(username);
-							check_ar = (ArrayList<ArrayList<String>>) all_users_courselist.get(username).clone();
-						}
-					}
 				    
 				    CommonToCourses.facaulty_selection(username,course,java4);
 				    CommonToCourses.facaulty_selection(username,course,java5);
@@ -109,16 +94,6 @@ public interface JavaFullStack extends CommonToCourses{
 				case 3:
 					CommonToCourses.check_course(user,java6);
 					
-					if(checkUser.get(username) == 0) {
-						Main.out_ar = new ArrayList<>();    
-					}
-					else {
-						if(all_users_courselist.get(username).size() != 0) {
-							Main.out_ar = all_users_courselist.get(username);
-							check_ar = (ArrayList<ArrayList<String>>) all_users_courselist.get(username).clone();
-						}
-					}
-
 					CommonToCourses.facaulty_selection(username,course,java6);
 					CommonToCourses.facaulty_selection(username,course,java7);
 					

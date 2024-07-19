@@ -1,9 +1,6 @@
 package com.courses;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
 
 import com.common.Common;
 import com.common.CommonToCourses;
@@ -25,9 +22,18 @@ public interface UIFullStack extends CommonToCourses{
 			checkUser.put(username, 0);
 			all_users_courselist.put(username,null);
 		}
+		if(checkUser.get(username) == 0) {
+			Main.out_ar = new ArrayList<>();   
+		}
+		else {
+			if(all_users_courselist.get(username).size() != 0) {
+				Main.out_ar = all_users_courselist.get(username);   
+				check_ar = (ArrayList<ArrayList<String>>) all_users_courselist.get(username).clone();
+			}
+		}
 		Main.cnt = checkUser.get(username);  
 		System.out.println("\n\nName : "+username+"   		no of courses in your list:"+Main.cnt);
-		System.out.println(BLACK_BACKGROUND+PURPLE+"				FULL STATCK PYTHON				"+ANSI_RESET);
+		System.out.println(BLACK_BACKGROUND+PURPLE+"				UI FULL STATCK 				"+ANSI_RESET);
 		System.out.println("This complete course divided into 3 phases.............");
 		System.out.println(YELLOW+"PRESS 1 :"+ANSI_RESET+" PHASE-01[FIRST 2 MONTHS]:\n"+web1+ "\n"+web2);
 		System.out.println(YELLOW+"PRESS 2 :"+ANSI_RESET+" PHASE -02[NEXT 2 MONTHS]: \n"+web3+"\n"+web4);
@@ -41,16 +47,6 @@ public interface UIFullStack extends CommonToCourses{
 				switch(Integer.parseInt(choice)){
 				case 1:
 					CommonToCourses.check_course(user,web1); 
-					
-					if(checkUser.get(username) == 0) {
-						Main.out_ar = new ArrayList<>();   
-					}
-					else {
-						if(all_users_courselist.get(username).size() != 0) {
-							Main.out_ar = all_users_courselist.get(username);   
-							check_ar = (ArrayList<ArrayList<String>>) all_users_courselist.get(username).clone();
-						}
-					}
 					
 					CommonToCourses.facaulty_selection(username,course,web1);
 					CommonToCourses.facaulty_selection(username,course,web2);
@@ -69,16 +65,6 @@ public interface UIFullStack extends CommonToCourses{
 				case 2:
 					CommonToCourses.check_course(user,web3);
 					
-				    if(checkUser.get(username) == 0) {
-						Main.out_ar = new ArrayList<>();    
-					}
-				    else {
-						if(all_users_courselist.get(username).size() != 0) {
-							Main.out_ar = all_users_courselist.get(username);
-							check_ar = (ArrayList<ArrayList<String>>) all_users_courselist.get(username).clone();
-						}
-					}
-				    
 				    CommonToCourses.facaulty_selection(username,course,web3);
 				    CommonToCourses.facaulty_selection(username,course,web4);
 			
@@ -95,17 +81,7 @@ public interface UIFullStack extends CommonToCourses{
 					break;
 				case 3:
 					CommonToCourses.check_course(user,web5);
-					
-					if(checkUser.get(username) == 0) {
-						Main.out_ar = new ArrayList<>();    
-					}
-					else {
-						if(all_users_courselist.get(username).size() != 0) {
-							Main.out_ar = all_users_courselist.get(username);
-							check_ar = (ArrayList<ArrayList<String>>) all_users_courselist.get(username).clone();
-						}
-					}
-
+			
 					CommonToCourses.facaulty_selection(username,course,web5);
 					CommonToCourses.facaulty_selection(username,course,web6);
 					
