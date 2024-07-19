@@ -410,11 +410,7 @@ public interface SignUp extends Common{
 
 			static void StoreSessionData() throws IOException 
 			{
-<<<<<<< HEAD
 				FileWriter fw = new FileWriter("C:\\Users\\LENOVO\\git\\CoreJavaProj\\NareshTech\\src\\com\\data\\sessions",true);
-=======
-				FileWriter fw = new FileWriter(give your path of sessions file here,true);
->>>>>>> refs/remotes/origin/master
 				BufferedWriter bw = new BufferedWriter(fw);
 				bw.write("\n\n");
 				String heading = "Session starts on " + Main.start;
