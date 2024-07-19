@@ -410,7 +410,7 @@ public interface SignUp extends Common{
 
 			static void StoreSessionData() throws IOException 
 			{
-				FileWriter fw = new FileWriter("C:\\Users\\LENOVO\\OneDrive\\Desktop\\BEGIN\\JAVA-ECLIPSE\\eclipse-workspace\\NareshTech\\src\\com\\data\\sessions",true);
+				FileWriter fw = new FileWriter("C:\\Users\\LENOVO\\git\\CoreJavaProj\\NareshTech\\src\\com\\data\\sessions",true);
 				BufferedWriter bw = new BufferedWriter(fw);
 				bw.write("\n\n");
 				String heading = "Session starts on " + Main.start;
@@ -445,7 +445,7 @@ public interface SignUp extends Common{
 				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 				bw.write("\nSession Ends at " +sdf.format(date).toString());
 				bw.write("\n================================================================================");
-				bw.close();
+				bw.flush();
 			}
 
 }

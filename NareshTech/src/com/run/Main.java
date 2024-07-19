@@ -32,7 +32,7 @@ public class Main implements SignUp,DisplayCourses{
 							+YELLOW+"PRESS - 3 :"+ANSI_RESET+"FULLSTACK PYTHON\n"
 							+YELLOW+"PRESS - 4 :"+ANSI_RESET+"FULLSTACK WEB DEVELOPMENT(MERN)\n"
 							+YELLOW+"PRESS - 5 :"+ANSI_RESET+"FULLSTACK DATASCIENCE\n"
-							+YELLOW+"PRESS - 11 :"+PURPLE+BLACK_BACKGROUND+ "GET INTO SIGN IN PAGE.. \n"+ANSI_RESET	
+							+YELLOW+"PRESS - 11 :"+PURPLE+BLACK_BACKGROUND+ "GET INTO SIGN UP PAGE.. \n"+ANSI_RESET	
 		);
 		System.out.println("What do you want to Visit"+RED_BACKGROUND+"??"+ANSI_RESET);
 		boolean temp = true;

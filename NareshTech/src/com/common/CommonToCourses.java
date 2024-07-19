@@ -235,7 +235,7 @@ public interface CommonToCourses extends Common{
 					flag = false;
 				}
 				else {
-					System.out.print("Choose only available Timings : ");
+					System.out.print("Choose only available Timings of "+c+": ");
 				}
 				
 			}
