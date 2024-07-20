@@ -17,6 +17,7 @@ public interface SignUp extends Common{
 			System.out.println("First register and then Login with your credentials...");
 			System.out.println(GREEN+"PRESS 1 :"+ANSI_RESET+"Register Course");
 			System.out.println(GREEN+"PRESS 2 :"+ANSI_RESET+" Login");
+			System.out.println(YELLOW+"PRESS 3 : >>GO BACK"+ANSI_RESET);
 			//System.out.println(G+"PRESS 100 :"+D+"ADMIN EXIT");   //---------only for admin 
 			while(true) {
 				String choice = sc.next();
@@ -27,6 +28,9 @@ public interface SignUp extends Common{
 							break;
 						case 2:
 							login(0);
+							break;
+						case 3:
+							Main.main(null);
 							break;
 						case 100: login(100);
 								break;
@@ -314,29 +318,33 @@ public interface SignUp extends Common{
 				String uid = sc.next();
 				System.out.print("Enter your PASSWORD : ");
 				String pwd = sc.next();
-				if(uid.equals("admin") && pwd.equals("password")) {
-					displayAllData();
-					StoreSessionData();
-					System.exit(0);
+				//logout of admin
+				if(admin_check ==100) {
+					if(uid.equals("admin") && pwd.equals("password")) {
+						displayAllData();
+						StoreSessionData();
+						System.exit(0);
+					}else {
+						System.out.println(BLACK_BACKGROUND+RED_BACKGROUND+"Invalid ADMIN Details.."+ANSI_RESET);
+						Entry();
+					}
 				}
+				
 				int count =0;
 				//checking the user presence in log_details
 				for(int i=0;i<log_details.size(); i++) {
 					if(log_details.get(i).contains(uid) && log_details.get(i).contains(pwd)) {
+//						--------------------------
 						CommonToCourses.intoCourse(log_details.get(i));  //CARRY THE PARTICULAR USER DATA
 						count++;
 					}
 				}
 				//if not found 
 				if(count == 0) {
-					if(admin_check == 100) {
-						System.out.println(BLACK_BACKGROUND+RED_BACKGROUND+"Invalid ADMIN Details.."+ANSI_RESET);
-						Entry();
-					}
-					else {
-						System.out.println(BLACK_BACKGROUND+RED_BACKGROUND+"Invalid User Details.."+ANSI_RESET);
-						System.out.println(PURPLE+"If you not registered yet\n"+ANSI_RESET+ GREEN+" Press-1:"+ANSI_RESET+"First Register Course\n"+"	Or Else\n "
-											+ GREEN+"Press -2:"+ANSI_RESET+" Try once again");
+						System.out.println(BLACK_BACKGROUND+RED_BACKGROUND+"Invalid User Details....First Register Course.."+ANSI_RESET);
+						System.out.println(PURPLE+"Press 1:"+ANSI_RESET+" If you wanna Register\n"+
+						GREEN+"Press 2:"+ANSI_RESET+" Try once again\n"
+						+YELLOW+"PRESS 3 : >>GO BACK"+ANSI_RESET);
 						boolean temp = true;
 						while(temp) {
 							String choice = sc.next();
@@ -349,6 +357,9 @@ public interface SignUp extends Common{
 										login(0);
 										break;
 									case 3:
+										Entry();
+										break;
+									default:
 										System.out.println("Invalid Choice!");
 								}
 							}else {
@@ -356,7 +367,6 @@ public interface SignUp extends Common{
 							System.out.println("You should provide valid input"+RED_BACKGROUND+".."+ANSI_RESET);
 						}
 							
-						}
 					}
 				}
 			}
@@ -430,19 +440,23 @@ public interface SignUp extends Common{
 					String mode = "\nTraining Mode : "+i.get(6);
 					bw.write(mode);
 					
-					String user = i.get(0);
-					@SuppressWarnings("unchecked")
-					ArrayList<ArrayList<String>> list = (ArrayList<ArrayList<String>>) all_users_courselist.get(user).clone();
 					bw.write("\n\t\t\tCOURSE LIST\n");
 					bw.write("\t\t\t------------\n");
-					for(ArrayList<String> ele : list) {
-						String e = ele.get(0)+"\t"+ele.get(1)+"\t"+ele.get(2)+"\n";
-						bw.write(e);
+					String user = i.get(0);
+					if(all_users_courselist.get(user) != null) {
+						@SuppressWarnings("unchecked")
+						ArrayList<ArrayList<String>> list = (ArrayList<ArrayList<String>>) all_users_courselist.get(user).clone();
+						for(ArrayList<String> ele : list) {
+							String e = ele.get(0)+"\t"+ele.get(1)+"\t"+ele.get(2)+"\n";
+							bw.write(e);
+						}
+					}else {
+						bw.write(user + " does not attend any classes yet!!");
 					}
-					bw.write("------------------------------------------------------");
 				}	
 				java.util.Date date = new java.util.Date();
 				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+				bw.write("\n------------------------------------------------------");
 				bw.write("\nSession Ends at " +sdf.format(date).toString());
 				bw.write("\n================================================================================");
 				bw.flush();

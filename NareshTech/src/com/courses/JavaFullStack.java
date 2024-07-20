@@ -56,7 +56,8 @@ public interface JavaFullStack extends CommonToCourses{
 			if(Common.isNumeric(choice)) {
 				switch(Integer.parseInt(choice)){
 				case 1:
-					CommonToCourses.check_course(user,java1);  
+					//checking of one class if enough, because if he attend this phases all classes in this phase was already in his course list
+					CommonToCourses.check_course(user,java1);  	
 					
 					CommonToCourses.facaulty_selection(username,course,java1);
 					CommonToCourses.facaulty_selection(username,course,java2);

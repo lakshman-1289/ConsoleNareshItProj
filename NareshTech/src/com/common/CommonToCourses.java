@@ -119,7 +119,8 @@ public interface CommonToCourses extends Common{
 			System.out.println(BLACK_BACKGROUND+BLUE+"Available Trainers to "+phase_class+ANSI_RESET); 
 			HashMap<String,List<String>> val = course.get(phase_class);
 			for(Map.Entry m : val.entrySet()){    
-			    System.out.println(m.getKey());    
+			    //System.out.println(m.getKey()); 
+			    System.out.printf("%-30s==>%-50s\n",m.getKey(),m.getValue());
 			}  
 
 			ArrayList<String> ar = new ArrayList<>();
