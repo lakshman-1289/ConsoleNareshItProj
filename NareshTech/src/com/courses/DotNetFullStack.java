@@ -29,7 +29,7 @@ public interface DotNetFullStack extends CommonToCourses{
 		System.out.println("			FULL STACK .NET				");
 		CommonToCourses.display_classes(dfs);
 		
-		int chc = CommonToCourses.addOrRemove(user);
+		int chc = CommonToCourses.addOrDisplay(user);
 		
 		CommonToCourses.allCoursesMain(user, dfs, chc, check_ar);
 	}

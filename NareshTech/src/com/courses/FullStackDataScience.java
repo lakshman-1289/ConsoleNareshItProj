@@ -28,7 +28,7 @@ public interface FullStackDataScience extends CommonToCourses{
 		System.out.println("			FULL STACK DATA SCIENCE				");
 		CommonToCourses.display_classes(fds);
 		
-		int chc = CommonToCourses.addOrRemove(user);
+		int chc = CommonToCourses.addOrDisplay(user);
 		
 		CommonToCourses.allCoursesMain(user, fds, chc, check_ar);
 	}

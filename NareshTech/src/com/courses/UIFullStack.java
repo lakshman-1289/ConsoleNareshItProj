@@ -27,7 +27,7 @@ public interface UIFullStack extends CommonToCourses{
 		System.out.println("			FULL STACK WEB DEVELOPMENT				");
 		CommonToCourses.display_classes(wfs);
 		
-		int chc = CommonToCourses.addOrRemove(user);
+		int chc = CommonToCourses.addOrDisplay(user);
 		
 		CommonToCourses.allCoursesMain(user, wfs, chc, check_ar);
 	}

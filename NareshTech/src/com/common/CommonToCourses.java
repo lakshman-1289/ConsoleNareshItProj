@@ -3,7 +3,7 @@ package com.common;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -80,13 +80,10 @@ public interface CommonToCourses extends Common{
 				}
 			}
 		
-		//It maintains list of timings of selected Trainers (used for display all combinations)..
-		List<List<String>> iterator_timings = new ArrayList<>();
 		
-		//Maintain size of user's course list and update "cnt variable" everytime
+		//Maintain size of user's course list and update "cnt variable" every time
 		HashMap<String,Integer> checkUser = new HashMap<>();
-		
-		
+
 		@SuppressWarnings("unchecked")
 		static ArrayList<CourseListObject> check_user(String username) {
 			ArrayList<CourseListObject> check_ar = new ArrayList<>();
@@ -95,12 +92,12 @@ public interface CommonToCourses extends Common{
 				all_users_courselist.put(username,null);
 			}
 			if(checkUser.get(username) == 0) {
-				Main.out_ar = new ArrayList<>();   
+				Main.out_ar = all_users_courselist.get(username);   
 			}
 			else {
 				//do you want to attend some more classes
 				Main.out_ar = all_users_courselist.get(username);   
-				check_ar = (ArrayList<CourseListObject>) all_users_courselist.get(username).clone();
+				check_ar =  (ArrayList<CourseListObject>) all_users_courselist.get(username).clone();
 				return check_ar;
 			}
 			return check_ar;
@@ -112,7 +109,7 @@ public interface CommonToCourses extends Common{
 			System.out.println();
 		}
 		
-		static int addOrRemove(LogObject user){
+		static int addOrDisplay(LogObject user){
 			System.out.println("Enter D for DISPLAY YOUR COURSE LIST");
 			System.out.println("Enter A for ADD CLASSES INTO YOUR COURSE LIST");
 			System.out.println("?????????????????????????????????????????????");
@@ -146,67 +143,132 @@ public interface CommonToCourses extends Common{
 			return chc;
 		}
 		
+			//adding classes method for fullStackCourse having 7 classes
+			static LinkedHashSet<String> select_courses(String[] fullStack,int no) {
+				LinkedHashSet<String> res = new LinkedHashSet<>();
+					System.out.println("PRESS-01: "+fullStack[0]);
+					System.out.println("PRESS-02: "+fullStack[1]);
+					System.out.println("PRESS-03: "+fullStack[2]);
+					System.out.println("PRESS-04: "+fullStack[3]);
+					System.out.println("PRESS-05: "+fullStack[4]);
+					System.out.println("PRESS-06: "+fullStack[5]);
+					System.out.println("PRESS-07: "+fullStack[6]);
+				
+					System.out.println("Which classes do you wanna attend...Choose Below??");
+					for(int i=0; i<no; i++) {
+						System.out.print("Class-0"+(i+1)+": ");
+						switch(Common.choice_validation()) {
+						case 1: res.add(fullStack[0]) ;break;
+						case 2: res.add(fullStack[1]) ;break;
+						case 3: res.add(fullStack[2]) ;break;
+						case 4: res.add(fullStack[3]) ;break;
+						case 5: res.add(fullStack[4]) ;break;
+						case 6: res.add(fullStack[5]) ;break;
+						case 7: res.add(fullStack[6]) ;break;
+						default:System.out.println("Invalid choice!!");i--;
+						}
+					}
+					
+				return res;
+			}
+			
+			//adding classes method for fullStackCourse having 6 classes
+			static LinkedHashSet<String> select_courses(String[] fullStack,int no,int dummy) {
+				LinkedHashSet<String> res = new LinkedHashSet<>();
+					System.out.println("PRESS-01: "+fullStack[0]);
+					System.out.println("PRESS-02: "+fullStack[1]);
+					System.out.println("PRESS-03: "+fullStack[2]);
+					System.out.println("PRESS-04: "+fullStack[3]);
+					System.out.println("PRESS-05: "+fullStack[4]);
+					System.out.println("PRESS-06: "+fullStack[5]);
+				
+					System.out.println("Which classes do you wanna attend...Choose Below??");
+					for(int i=0; i<no; i++) {
+						System.out.print("Class-0"+(i+1)+": ");
+						switch(Common.choice_validation()) {
+						case 1: res.add(fullStack[0]) ;break;
+						case 2: res.add(fullStack[1]) ;break;
+						case 3: res.add(fullStack[2]) ;break;
+						case 4: res.add(fullStack[3]) ;break;
+						case 5: res.add(fullStack[4]) ;break;
+						case 6: res.add(fullStack[5]) ;break;
+						default:System.out.println("Invalid choice!!");i--;
+						}
+					}
+					
+				return res;
+			}
+		
 		static void allCoursesMain(LogObject user,String[] fds,int chc,ArrayList<CourseListObject> check_ar ){
 			String username = user.getUsername();
-			LinkedHashSet<String> sel_list = new LinkedHashSet<String>();
+			LinkedHashSet<String> list = new LinkedHashSet<String>();
 			if(fds.length == 7)
-				sel_list = CommonToCourses.select_courses(fds,chc);
+				list = CommonToCourses.select_courses(fds,chc);
 			else
-				sel_list = CommonToCourses.select_courses(fds, chc, 6);
-				
-			ArrayList<String> list = new ArrayList<String>(sel_list);
+				list = CommonToCourses.select_courses(fds, chc, 6);
 			
-			int n = list.size();
+				int n= list.size();
 			
 			switch(n) {
 				case 1:
-					CommonToCourses.check_course(user,list.get(0));
-					CommonToCourses.facaulty_selection(username,list.get(0));
+					Iterator<String> lh1=list.iterator();
+					while(lh1.hasNext())
+						CommonToCourses.check_course(user,lh1.next());
+					
+					lh1=list.iterator();
+					while(lh1.hasNext())
+						CommonToCourses.facaulty_selection(username,lh1.next());
+					
 					CommonToCourses.display_iterations(username);
 					CommonToCourses.display_list(user,1);
-					CommonToCourses.addTimingToEachClass(username,list.get(0));
+					
+					lh1=list.iterator();
+					while(lh1.hasNext())
+						CommonToCourses.addTimingToEachClass(username,lh1.next());
+					
 					CommonToCourses.check_timings(user,check_ar);
 					checkUser.put(username,Main.cnt);
 					CommonToCourses.display_list(user);
 					break;
 				case 2:
-					for(int i=0; i<n; i++) {
-						CommonToCourses.check_course(user,list.get(i));
-					}
+					Iterator<String> lh2 = list.iterator();
+					while(lh2.hasNext())
+						CommonToCourses.check_course(user,lh2.next());
 					
-					for(int i=0; i<n; i++) {
-						CommonToCourses.facaulty_selection(username,list.get(i));
-					}
+					lh2 = list.iterator();
+					while(lh2.hasNext())
+						CommonToCourses.facaulty_selection(username,lh2.next());
+					
 					
 				    CommonToCourses.display_iterations(username,2);
 					
 				    CommonToCourses.display_list(user,2);
 				    
-				    for(int i=0; i<n; i++) {
-				    	CommonToCourses.addTimingToEachClass(username,list.get(i));
-				    }
+				    lh2 = list.iterator();
+					while(lh2.hasNext())
+				    	CommonToCourses.addTimingToEachClass(username,lh2.next());
 					
 					CommonToCourses.check_timings(user,check_ar);
 					checkUser.put(username,Main.cnt);
 					CommonToCourses.display_list(user);
 					break;
-					
 				case 3:
-					for(int i=0; i<n; i++) {
-						CommonToCourses.check_course(user,list.get(i));
-					}
+					Iterator<String> lh3 = list.iterator();
+					while(lh3.hasNext())
+						CommonToCourses.check_course(user,lh3.next());
 					
-					for(int i=0; i<n; i++) {
-						CommonToCourses.facaulty_selection(username,list.get(i));
-					}
+					
+					lh3 = list.iterator();
+					while(lh3.hasNext())
+						CommonToCourses.facaulty_selection(username,lh3.next());
 					
 				    CommonToCourses.display_iterations(username,3.3F);
 					
 				    CommonToCourses.display_list(user,3);
 				    
-				    for(int i=0; i<n; i++) {
-				    	CommonToCourses.addTimingToEachClass(username,list.get(i));
-				    }
+				    lh3 = list.iterator();
+					while(lh3.hasNext())
+				    	CommonToCourses.addTimingToEachClass(username,lh3.next());
 					
 					CommonToCourses.check_timings(user,check_ar);
 					checkUser.put(username,Main.cnt);
@@ -214,21 +276,22 @@ public interface CommonToCourses extends Common{
 					break;
 					
 				case 4:
-					for(int i=0; i<n; i++) {
-						CommonToCourses.check_course(user,list.get(i));
-					}
+					Iterator<String> lh4 = list.iterator();
+					while(lh4.hasNext())
+						CommonToCourses.check_course(user,lh4.next());
 					
-					for(int i=0; i<n; i++) {
-						CommonToCourses.facaulty_selection(username,list.get(i));
-					}
+					lh4 = list.iterator();
+					while(lh4.hasNext())
+						CommonToCourses.facaulty_selection(username,lh4.next());
+					
 					
 				    CommonToCourses.display_iterations(username,"dummy");
 					
 				    CommonToCourses.display_list(user,4);
 				    
-				    for(int i=0; i<n; i++) {
-				    	CommonToCourses.addTimingToEachClass(username,list.get(i));
-				    }
+				    lh4 = list.iterator();
+					while(lh4.hasNext())
+				    	CommonToCourses.addTimingToEachClass(username,lh4.next());
 					
 					CommonToCourses.check_timings(user,check_ar);
 					checkUser.put(username,Main.cnt);
@@ -237,68 +300,15 @@ public interface CommonToCourses extends Common{
 			}
 		}
 		
-		static LinkedHashSet<String> select_courses(String[] fullStack,int no) {
-			LinkedHashSet<String> res = new LinkedHashSet<>();
-				System.out.println("PRESS-01: "+fullStack[0]);
-				System.out.println("PRESS-02: "+fullStack[1]);
-				System.out.println("PRESS-03: "+fullStack[2]);
-				System.out.println("PRESS-04: "+fullStack[3]);
-				System.out.println("PRESS-05: "+fullStack[4]);
-				System.out.println("PRESS-06: "+fullStack[5]);
-				System.out.println("PRESS-07: "+fullStack[6]);
-			
-				System.out.println("Which classes do you wanna attend...Choose Below??");
-				for(int i=0; i<no; i++) {
-					System.out.print("Class-0"+(i+1)+": ");
-					switch(Common.choice_validation()) {
-					case 1: res.add(fullStack[0]) ;break;
-					case 2: res.add(fullStack[1]) ;break;
-					case 3: res.add(fullStack[2]) ;break;
-					case 4: res.add(fullStack[3]) ;break;
-					case 5: res.add(fullStack[4]) ;break;
-					case 6: res.add(fullStack[5]) ;break;
-					case 7: res.add(fullStack[6]) ;break;
-					default:System.out.println("Invalid choice!!");i--;
-					}
-				}
-				
-			return res;
-		}
-		
-		static LinkedHashSet<String> select_courses(String[] fullStack,int no,int dummy) {
-			LinkedHashSet<String> res = new LinkedHashSet<>();
-				System.out.println("PRESS-01: "+fullStack[0]);
-				System.out.println("PRESS-02: "+fullStack[1]);
-				System.out.println("PRESS-03: "+fullStack[2]);
-				System.out.println("PRESS-04: "+fullStack[3]);
-				System.out.println("PRESS-05: "+fullStack[4]);
-				System.out.println("PRESS-06: "+fullStack[5]);
-			
-				System.out.println("Which classes do you wanna attend...Choose Below??");
-				for(int i=0; i<no; i++) {
-					System.out.print("Class-0"+(i+1)+": ");
-					switch(Common.choice_validation()) {
-					case 1: res.add(fullStack[0]) ;break;
-					case 2: res.add(fullStack[1]) ;break;
-					case 3: res.add(fullStack[2]) ;break;
-					case 4: res.add(fullStack[3]) ;break;
-					case 5: res.add(fullStack[4]) ;break;
-					case 6: res.add(fullStack[5]) ;break;
-					default:System.out.println("Invalid choice!!");i--;
-					}
-				}
-				
-			return res;
-		}
 	
 		//Checking the phase of classes already existed or not in the user's course list
+		@SuppressWarnings("unchecked")
 		static void check_course(LogObject user,String cls){
-			String uname = user.getUsername();
 			String c = user.getUserCourse();
-			if(all_users_courselist.get(uname) == null)
+			if(Main.out_ar == null)
 				return;
 			ArrayList<CourseListObject> temp = new ArrayList<>();
-			temp = all_users_courselist.get(uname);
+			temp = (ArrayList<CourseListObject>) Main.out_ar.clone();
 			for(CourseListObject ele : temp) {
 				if(ele.getSubject().equals(cls)) {
 					System.out.println("ALREADY EXISTED CLASSES ");
@@ -321,8 +331,14 @@ public interface CommonToCourses extends Common{
 			}
 		 }
 		
+		//It maintains list of timings of selected Trainers (used for display all combinations)..
+		ArrayList<ArrayList<String>> iterator_timings = new ArrayList<>();
+		
 		//Trainer Selection and store in user's course list
+		@SuppressWarnings("rawtypes")
 		static void facaulty_selection(String username,String cls){
+			if(Main.out_ar == null)
+				Main.out_ar = new ArrayList<CourseListObject>();
 			System.out.println("Available Trainers to "+cls); 
 			HashMap<String,List<String>> val = course.get(cls);
 			for(Map.Entry m : val.entrySet()){    
@@ -360,17 +376,18 @@ public interface CommonToCourses extends Common{
 			Main.out_ar.add(cobj);
 			
 			all_users_courselist.put(username,Main.out_ar);
-			iterator_timings.add(course.get(cls).get(trainer));
+			ArrayList<String> ar = new ArrayList<>(course.get(cls).get(trainer));
+			iterator_timings.add(ar);
 		}
 		
 		//Method to Displays all possible combinational set of timings of phase having 3 classes
 		static void display_iterations(String username) {
-			List<List<String>> it1 = iterator_timings;
+			ArrayList<ArrayList<String>> it1 = iterator_timings;
 			System.out.println("				All available set of timings..				");
 			System.out.println("			Choose your comfortable timing 		");
 			System.out.println("=======================================");
 				for(int m=0;m<it1.get(0).size(); m++) {
-					System.out.println(all_users_courselist.get(username).get(Main.cnt).getSubject() +" : "+it1.get(0).get(m)+"\t\t");
+					System.out.println(Main.out_ar.get(Main.cnt).getSubject() +" : "+it1.get(0).get(m)+"\t\t");
 				}
 				System.out.println("=======================================");
 			it1.clear();//----------------------------
@@ -378,7 +395,7 @@ public interface CommonToCourses extends Common{
 		
 		//Method to Displays all possible combinational set of timings of phase having 2 classes
 		static void display_iterations(String username,int dummy) {
-			List<List<String>> it2 = iterator_timings;
+			ArrayList<ArrayList<String>> it2 = iterator_timings;
 			System.out.println("				All available set of timings..				");
 			System.out.println("			Choose your comfortable timing set		");
 			System.out.println("==========================================================================================");
@@ -392,8 +409,8 @@ public interface CommonToCourses extends Common{
 						continue;
 					temp.add(it2.get(1).get(j));
 					System.out.println("-------------------------------------------------------------------------------------------");
-						for(int l=Main.cnt,m=0; l<all_users_courselist.get(username).size(); l++,m++) {
-							System.out.print(all_users_courselist.get(username).get(l).getSubject() +" : "+temp.get(m)+"\t\t");
+						for(int l=Main.cnt,m=0; l<Main.out_ar.size(); l++,m++) {
+							System.out.print(Main.out_ar.get(l).getSubject() +" : "+temp.get(m)+"\t\t");
 						}
 						System.out.println();
 						
@@ -410,7 +427,7 @@ public interface CommonToCourses extends Common{
 		
 		//Method to Displays all possible combinational set of timings of phase having 3 classes
 		static void display_iterations(String username,float x) {
-			List<List<String>> it3 = iterator_timings;
+			ArrayList<ArrayList<String>> it3 = iterator_timings;
 			System.out.println("				All available set of timings..				");
 			System.out.println("			Choose your comfortable timing set		");
 			System.out.println("==========================================================================================");
@@ -429,8 +446,8 @@ public interface CommonToCourses extends Common{
 							continue;
 						temp.add(it3.get(2).get(k));
 						System.out.println("-------------------------------------------------------------------------------------------");
-						for(int l=Main.cnt,m=0; l<all_users_courselist.get(username).size(); l++,m++) {
-							System.out.print(all_users_courselist.get(username).get(l).getSubject() +" : "+temp.get(m)+"\t\t");
+						for(int l=Main.cnt,m=0; l<Main.out_ar.size(); l++,m++) {
+							System.out.print(Main.out_ar.get(l).getSubject() +" : "+temp.get(m)+"\t\t");
 						}
 						System.out.println();
 						temp.remove(temp.indexOf(it3.get(2).get(k)));
@@ -448,7 +465,7 @@ public interface CommonToCourses extends Common{
 		
 		//Method to Displays all possible combinational set of timings of phase having 4 classes
 		static void display_iterations(String username,String s) {
-			List<List<String>> it4 = iterator_timings;
+			ArrayList<ArrayList<String>> it4 = iterator_timings;
 			System.out.println("				All available set of timings..				");
 			System.out.println("			Choose your comfortable timing set		");
 			System.out.println("==============================================================================================================");
@@ -472,8 +489,8 @@ public interface CommonToCourses extends Common{
 								continue;
 							temp.add(it4.get(3).get(k));
 							System.out.println("---------------------------------------------------------------------------------------------------------------");
-							for(int l=Main.cnt,m=0; l<all_users_courselist.get(username).size(); l++,m++) {
-								System.out.print(all_users_courselist.get(username).get(l).getSubject() +" : "+temp.get(m)+"\t\t");
+							for(int l=Main.cnt,m=0; l<Main.out_ar.size(); l++,m++) {
+								System.out.print(Main.out_ar.get(l).getSubject() +" : "+temp.get(m)+"\t\t");
 							}
 							System.out.println();
 							temp.remove(temp.indexOf(it4.get(3).get(k)));
@@ -499,7 +516,7 @@ public interface CommonToCourses extends Common{
 			while(flag) {
 				String time =sc.next().trim();
 				if(timings.contains(time)) {
-					all_users_courselist.get(username).get(Main.cnt++).setTimeSlot(time);;
+					Main.out_ar.get(Main.cnt++).setTimeSlot(time);;
 					flag = false;
 				}
 				else {
@@ -516,13 +533,13 @@ public interface CommonToCourses extends Common{
 			System.out.println("===================================================================================");
 			System.out.println("							DEAR STUDENT,"+username.toUpperCase());
 			System.out.println("				"+"YOUR COURSE LIST"+"							");
-			ArrayList<CourseListObject> all = all_users_courselist.get(username);
-			if(all_users_courselist.get(username) == null) { 
+			ArrayList<CourseListObject> all = Main.out_ar;
+			if(Main.out_ar == null) { 
 				System.out.println("				"+"No Phase of classes Added yet");
 			}
 			else {
 				@SuppressWarnings("unchecked")
-				ArrayList<CourseListObject> temp = (ArrayList<CourseListObject>) all_users_courselist.get(username).clone();
+				ArrayList<CourseListObject> temp = (ArrayList<CourseListObject>) Main.out_ar.clone();
 				if(temp.get(0).getTimeSlot() == null) {
 					System.out.println("				"+"No Phase of classes Added yet");
 				}
@@ -541,10 +558,9 @@ public interface CommonToCourses extends Common{
 		{
 			String uname = user.getUsername();
 			String c = user.getUserCourse();
-			if(all_users_courselist.get(uname) == null)
+			if(Main.out_ar == null)
 				return;
-			ArrayList<CourseListObject> temp = new ArrayList<>();
-			temp = (ArrayList<CourseListObject>) all_users_courselist.get(uname).clone();
+			ArrayList<CourseListObject> temp = (ArrayList<CourseListObject>) Main.out_ar.clone();
 			for(int i=0; i<temp.size()-1; i++) {
 				for(int j=i+1; j<temp.size(); j++) {
 					if(temp.get(i).getTimeSlot().equals(temp.get(j).getTimeSlot())) {
@@ -579,13 +595,13 @@ public interface CommonToCourses extends Common{
 			System.out.println("===================================================================================");
 			System.out.println("							DEAR STUDENT,"+username.toUpperCase());
 			System.out.println("				"+"YOUR COURSE LIST"+"							");
-			ArrayList<CourseListObject> all = all_users_courselist.get(username);
-			if(all_users_courselist.get(username) == null) {    //overcome exception "java.util.ArrayList.size()"
+			ArrayList<CourseListObject> all = Main.out_ar;
+			if(Main.out_ar == null) {    //overcome exception "java.util.ArrayList.size()"
 				System.out.println("				"+"No Phase of classes Added yet");
 			}
 			else {
 				@SuppressWarnings("unchecked")
-				ArrayList<CourseListObject> temp = (ArrayList<CourseListObject>) all_users_courselist.get(username).clone();
+				ArrayList<CourseListObject> temp = (ArrayList<CourseListObject>)Main.out_ar.clone();
 				if(temp.get(0).getTimeSlot() == null) {
 					System.out.println("				"+"No Phase of classes Added yet");
 				}

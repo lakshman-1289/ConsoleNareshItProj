@@ -29,7 +29,7 @@ public interface JavaFullStack extends CommonToCourses{
 		System.out.println("			FULL STACK JAVA				");
 		CommonToCourses.display_classes(jfs);
 		
-		int chc = CommonToCourses.addOrRemove(user);
+		int chc = CommonToCourses.addOrDisplay(user);
 		
 		CommonToCourses.allCoursesMain(user, jfs, chc, check_ar);
 		 

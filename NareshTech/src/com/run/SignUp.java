@@ -15,7 +15,7 @@ import com.common.CourseListObject;
 import com.common.LogObject;
 import com.common.RegisterObject;
 public interface SignUp extends Common{
-	
+		//sign up page entry method
 		static void Entry(){
 			System.out.println("HAVE YOU INTEREST TO JOIN ANY COURSE.. ");
 			System.out.println("First register and then Login with your credentials...");
@@ -53,9 +53,8 @@ public interface SignUp extends Common{
 						return gmail;
 					else {
 						System.out.println("Invalid gmail address!!");
-						gmail();
+						return gmail();
 					}
-					return gmail;
 				}
 				
 				//mobile number validation
@@ -64,7 +63,7 @@ public interface SignUp extends Common{
 					String n = sc.next();
 					if(!(Common.isNumeric(n)) || !(n.length() == 10)) {
 						System.out.println("Invalid phone number!");
-						number();
+						return number();
 					}
 					return n;
 				}
@@ -216,7 +215,7 @@ public interface SignUp extends Common{
 						robj.setMode("Online");temp=false;
 						break;
 					case 2:
-						robj.setMode("Online");temp=false;
+						robj.setMode("Ofline");temp=false;
 						break;
 					default:
 						System.out.println("Invalid Choice!!!..."+"Choose once Again?");
@@ -242,11 +241,11 @@ public interface SignUp extends Common{
 						temp = true;
 						while(temp) {
 							System.out.println("Enter your password : ");
-							password = change_password(password);
+							password = change_password(password); //updating password 
 							System.out.println("Confirm password : ");
 							if(password.equals(sc.next())) {
 								System.out.println("Password updated..");
-								lobj.setPassword(password);
+								lobj.setPassword(password); 
 								log_details.add(lobj); 
 								temp=false;
 								print_log_details(userid,password);
@@ -273,7 +272,7 @@ public interface SignUp extends Common{
 					for(RegisterObject ele : reg_details) {
 						if(ele.getFullName() == name) {
 							System.out.println("================================================================");
-							System.out.println("|			"+" Your Details "+"					|");
+							System.out.println("|			"+" Your Details "+"				|");
 							System.out.println("|		"+"Name :"+ele.getFullName()+" "+ele.getSurName()+"				|");
 							System.out.println("|		"+"Gmail :"+ele.getGmail() +"				|");
 							System.out.println("|		"+"Mobile No :"+ ele.getPhno()+"				|");

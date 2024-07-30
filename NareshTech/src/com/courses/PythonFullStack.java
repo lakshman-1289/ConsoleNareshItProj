@@ -27,7 +27,7 @@ public interface PythonFullStack extends CommonToCourses{
 		System.out.println("			PYTHON FULL STACK 				");
 		CommonToCourses.display_classes(pfs);
 		
-		int chc = CommonToCourses.addOrRemove(user);
+		int chc = CommonToCourses.addOrDisplay(user);
 		
 		CommonToCourses.allCoursesMain(user, pfs, chc, check_ar);
 	}

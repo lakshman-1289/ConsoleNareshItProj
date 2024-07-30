@@ -20,9 +20,12 @@ public class Main implements SignUp,DisplayCourses{
 
 	static int reg =0;  //Use it for only 1st user in SignUp page for each session
 	
-	//Below 2 are flow updatable variables to every user..
-	public static int cnt; //It always pointing an INDEX of classes in each user's course list
-	public static ArrayList<CourseListObject> out_ar ; //It acts as buffer to add phases of classes into each user's course list
+	//Below 2 are flow every time updating variables to every user..
+	//It every time used as an INDEX to class(course_list_obj) in each user's course list
+	public static int cnt; 
+	
+	//It acts as buffer and reference to add phases of classes into each user's course list
+	public static ArrayList<CourseListObject> out_ar ; 
 	
 	public static void main(String[] args)
 	{
