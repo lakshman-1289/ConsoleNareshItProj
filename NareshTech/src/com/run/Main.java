@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import com.common.Common;
+import com.common.CourseListObject;
 import com.courses.DisplayCourses;
 import com.courses.TrainersData;
 
@@ -21,26 +22,24 @@ public class Main implements SignUp,DisplayCourses{
 	
 	//Below 2 are flow updatable variables to every user..
 	public static int cnt; //It always pointing an INDEX of classes in each user's course list
-	public static ArrayList<ArrayList<String>> out_ar ; //It acts as buffer to add phases of classes into each user's course list
+	public static ArrayList<CourseListObject> out_ar ; //It acts as buffer to add phases of classes into each user's course list
 	
-	public static void main(String[] args) throws Exception
+	public static void main(String[] args)
 	{
-		System.out.println(YELLOW_BACKGROUND+BLACK+"WELCOME TO NARESH i TECHNOLOGIES"+ANSI_RESET);
-		System.out.println(BLACK_BACKGROUND+BLUE+"You Can Visit Any Course Given Below"+ANSI_RESET);
-		System.out.println(YELLOW+"These are all available Long Term courses in our Institution.."+ANSI_RESET);
-		System.out.println(YELLOW+"PRESS - 1 :"+ANSI_RESET+"FULLSTACK JAVA DEVELOPER\r\n"
-							+YELLOW+"PRESS - 2 :"+ANSI_RESET+ "FULLSTACK .NET DEVELOPER\r\n"
-							+YELLOW+"PRESS - 3 :"+ANSI_RESET+"FULLSTACK PYTHON\n"
-							+YELLOW+"PRESS - 4 :"+ANSI_RESET+"FULLSTACK WEB DEVELOPMENT(MERN)\n"
-							+YELLOW+"PRESS - 5 :"+ANSI_RESET+"FULLSTACK DATASCIENCE\n"
-							+YELLOW+"PRESS - 11 :"+PURPLE+BLACK_BACKGROUND+ "GET INTO SIGN UP PAGE.. \n"+ANSI_RESET	
+		System.out.println("WELCOME TO NARESH i TECHNOLOGIES");
+		System.out.println("You Can Visit Any Course Given Below");
+		System.out.println("These are all available Long Term courses in our Institution..");
+		System.out.println("PRESS - 1 :"+"FULLSTACK JAVA DEVELOPER\r\n"
+							+"PRESS - 2 :"+ "FULLSTACK .NET DEVELOPER\r\n"
+							+"PRESS - 3 :"+"FULLSTACK PYTHON\n"
+							+"PRESS - 4 :"+"FULLSTACK WEB DEVELOPMENT(MERN)\n"
+							+"PRESS - 5 :"+"FULLSTACK DATASCIENCE\n"
+							+"PRESS - 11 :"+"GET INTO SIGN UP PAGE.. \n"
 		);
-		System.out.println("What do you want to Visit"+RED_BACKGROUND+"??"+ANSI_RESET);
+		System.out.println("What do you want to Visit"+"??");
 		boolean temp = true;
 		while(temp) {
-			String choice = sc.next();
-			if(Common.isNumeric(choice)) {
-				switch(Integer.parseInt(choice)) {
+				switch(Common.choice_validation()) {
 					case 1:
 						mobj.fullStackJava();
 						break;
@@ -60,14 +59,8 @@ public class Main implements SignUp,DisplayCourses{
 						SignUp.Entry();
 						break;
 					default:
-						System.out.println("Invalid choice!!!");
-						System.out.println("please choose only available courses"+RED_BACKGROUND+"??"+ANSI_RESET);
+						System.out.println("Invalid choice!!!..."+"Choose only available courses"+"??");
 				}
-			}else {
-				System.out.println("Invalid input!!!!!");
-				System.out.println("You should provide valid input"+RED_BACKGROUND+".."+ANSI_RESET);
-			}
-			
 		}
 	}
 }

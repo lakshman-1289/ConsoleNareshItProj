@@ -10,17 +10,17 @@ public interface Common {
 	final static Scanner sc=new Scanner(System.in);
 
 	//ANSI_COLORNAME AND ANSI_RESET
-	//select the all instances of variable - Alt-Shift-R (used while renaming variable)
-	public static final String BLACK_BACKGROUND = "\u001B[40m"; 
-	public static final String YELLOW_BACKGROUND = "\u001B[43m";
-	public static final String BLUE = "\u001B[34m"; 
-	public static final String YELLOW = "\u001B[33m";
-	public static final String GREEN = "\u001B[32m";
-	public static final String PURPLE = "\u001B[35m"; 
-	public static final String RED_BACKGROUND = "\u001B[41m"; 
-	public static final String RED = "\u001B[31m";
-	public static final String BLACK = "\u001B[30m";
-	public static final String ANSI_RESET = "\u001B[0m";  
+//	select the all instances of variable - Alt-Shift-R (used while renaming variable)
+//	public static final String BLACK_BACKGROUND = "\u001B[40m"; 
+//	public static final String YELLOW_BACKGROUND = "\u001B[43m";
+//	public static final String BLUE = "\u001B[34m"; 
+//	public static final String YELLOW = "\u001B[33m";
+//	public static final String GREEN = "\u001B[32m";
+//	public static final String PURPLE = "\u001B[35m"; 
+//	public static final String RED_BACKGROUND = "\u001B[41m"; 
+//	public static final String RED = "\u001B[31m";
+//	public static final String BLACK = "\u001B[30m";
+//	public static final String ANSI_RESET = "\u001B[0m";  
 	
 	//COURSE VARIABLES
 	String java = "Full Stack Java";
@@ -29,10 +29,10 @@ public interface Common {
 	String web = "Full Stack Web Development";
 	String ds = "Full Stack Data Science";
 		
-	List<ArrayList<String>> reg_details = new ArrayList<ArrayList<String>>();  //registration details
-	List<ArrayList<String>> log_details = new ArrayList<ArrayList<String>>();  //login credentials
+	List<RegisterObject> reg_details = new ArrayList<>();  //registration details
+	List<LogObject> log_details = new ArrayList<>();  //login credentials
 	
-	HashMap<String,ArrayList<ArrayList<String>>> all_users_courselist = new HashMap<>();  //user's course list
+	HashMap<String,ArrayList<CourseListObject>> all_users_courselist = new HashMap<>();  //user's course list
 	
 	static boolean isNumeric(String str){
         return str != null && str.matches("[0-9]+");
@@ -45,6 +45,20 @@ public interface Common {
 				temp =true;
 		}
 		return temp;
+	}
+	
+	static int choice_validation() {
+		boolean flag=true;
+		while(flag) {
+			String choice = sc.next();
+			if(Common.isNumeric(choice)) {
+				flag = false;
+				return Integer.parseInt(choice);
+			}else {
+				System.out.println("Invalid input!!!...Try again with valid input?");
+			}
+		}
+		return 1000;
 	}
 
 }
