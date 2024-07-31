@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Map.Entry;
 
 import com.courses.DotNetFullStack;
 import com.courses.FullStackDataScience;
@@ -340,10 +340,10 @@ public interface CommonToCourses extends Common{
 			if(Main.out_ar == null)
 				Main.out_ar = new ArrayList<CourseListObject>();
 			System.out.println("Available Trainers to "+cls); 
-			HashMap<String,List<String>> val = course.get(cls);
-			for(Map.Entry m : val.entrySet()){    
-			    //System.out.println(m.getKey()); 
-			    System.out.printf("%-30s==>%-50s\n",m.getKey(),m.getValue());
+			HashMap<String,List<String>> subjectSet = course.get(cls);
+			ArrayList<String> eachKey = new ArrayList<>(subjectSet.keySet());
+			for(String k : eachKey){    
+			    System.out.printf("%-30s==>%-50s\n",k,subjectSet.get(k));
 			}  
 
 			CourseListObject cobj = new CourseListObject();
@@ -354,7 +354,8 @@ public interface CommonToCourses extends Common{
 			while(flag) {
 				int count =0;
 				trainer = sc.nextLine().trim();
-				for(Map.Entry m : val.entrySet()){    
+				ArrayList<Entry> eachEntry = new ArrayList<>(subjectSet.entrySet());
+				for(Entry m : eachEntry){    
 				    if(trainer.equalsIgnoreCase(m.getKey().toString())) {
 				    	trainer=m.getKey().toString();
 				    	count++;
@@ -378,7 +379,8 @@ public interface CommonToCourses extends Common{
 			all_users_courselist.put(username,Main.out_ar);
 			ArrayList<String> ar = new ArrayList<>(course.get(cls).get(trainer));
 			iterator_timings.add(ar);
-		}
+		}		
+		
 		
 		//Method to Displays all possible combinational set of timings of phase having 3 classes
 		static void display_iterations(String username) {
